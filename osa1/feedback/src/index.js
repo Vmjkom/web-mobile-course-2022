@@ -1,7 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
 
+const Statistics = ({stat1,stat2,stat3,stat4,stat5}) => (
+  <>
+  <h1>Statistiikkaa</h1>
+  <Statistic  text={"Hyvä"} stat={stat1}/>
+  <Statistic text="Neutraali" stat={stat2}></Statistic>
+  <Statistic text={"Huono"} stat={stat3}></Statistic>
+  <Statistic text={"Keskiarvo"} stat={stat4}></Statistic>
+  <Statistic text={"Positiivisia"} stat={stat5}></Statistic>
+  </>
+)
+
+const Statistic = ({stat,text}) => (
+  <p> {text} {stat} </p>
+)
 
 class App extends React.Component {
   constructor() {
@@ -41,28 +60,17 @@ class App extends React.Component {
     })
   }
 
-  laskekarvo  = (props) => {
-    const t = props.arr
-    return(
-      <>
-      {}
-      </>
-    )
-  }
+
   render() {
     return (
       <div>
-    <h1>anna palautetta</h1>
+    <h1>Anna palautetta</h1>
     {console.log(this.state.posit)}
-    <button onClick={this.klikhyvä}>hyvä</button>
-    <button onClick={this.klikneutraali}>neutraali</button>
-    <button onClick={this.klikhuono}>huono</button>
-      <h1>Statistiikkaa</h1>
-      <p> hyvä {this.state.hyvä}</p>
-      <p> neutraali {this.state.neutraali}</p>
-      <p> huono {this.state.huono}</p>
-      <p> keskiarvo {this.state.summa / this.state.kaikki.length}</p>
-      <p> positiivisia {this.state.posit.length / this.state.kaikki.length}%</p>
+    <Button handleClick={this.klikhyvä} text="Hyvä"/>
+    <Button handleClick={this.klikneutraali} text="Neutraali"/>
+    <Button handleClick={this.klikhuono} text="Huono"/>
+    <Statistics stat1={this.state.hyvä} stat2={this.state.neutraali} stat3={this.state.huono} 
+    stat4={this.state.summa / this.state.kaikki.length} stat5={this.state.posit.length / this.state.kaikki.length}/>
         </div>
       
       )
