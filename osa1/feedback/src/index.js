@@ -7,16 +7,28 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
-const Statistics = ({stat1,stat2,stat3,stat4,stat5}) => (
-  <>
-  <h1>Statistiikkaa</h1>
-  <Statistic  text={"Hyvä"} stat={stat1}/>
-  <Statistic text="Neutraali" stat={stat2}></Statistic>
-  <Statistic text={"Huono"} stat={stat3}></Statistic>
-  <Statistic text={"Keskiarvo"} stat={stat4}></Statistic>
-  <Statistic text={"Positiivisia"} stat={stat5}></Statistic>
-  </>
-)
+const Statistics = ({stat1,stat2,stat3,stat4,stat5,ehto}) => {
+ const bol = ehto;
+ if (ehto){
+   return(
+    <>
+    
+    <Statistic  text={"Hyvä"} stat={stat1}/>
+    <Statistic text="Neutraali" stat={stat2}></Statistic>
+    <Statistic text={"Huono"} stat={stat3}></Statistic>
+    <Statistic text={"Keskiarvo"} stat={stat4}></Statistic>
+    <Statistic text={"Positiivisia"} stat={stat5}></Statistic>
+    </>
+   )
+ } else {
+   return(
+   <p> Ei yhtään palautetta anettu</p>
+   )
+ }
+ 
+  }
+  
+
 
 const Statistic = ({stat,text}) => (
   <p> {text} {stat} </p>
@@ -62,18 +74,34 @@ class App extends React.Component {
 
 
   render() {
-    return (
-      <div>
-    <h1>Anna palautetta</h1>
-    {console.log(this.state.posit)}
+    
+    
+      return (
+        <>
+        
+    
+        <h1>Anna palautetta</h1>
     <Button handleClick={this.klikhyvä} text="Hyvä"/>
     <Button handleClick={this.klikneutraali} text="Neutraali"/>
     <Button handleClick={this.klikhuono} text="Huono"/>
-    <Statistics stat1={this.state.hyvä} stat2={this.state.neutraali} stat3={this.state.huono} 
-    stat4={this.state.summa / this.state.kaikki.length} stat5={this.state.posit.length / this.state.kaikki.length}/>
-        </div>
-      
+    <h1>Statistiikkaa</h1>
+    <Statistics stat1={this.state.hyvä} 
+    stat2={this.state.neutraali} 
+    stat3={this.state.huono} 
+    stat4={this.state.summa / this.state.kaikki.length} 
+    stat5={this.state.posit.length / this.state.kaikki.length} 
+    ehto = {this.state.kaikki.length != 0}/>
+      </>
       )
+    
+    
+      
+    
+  
+    
+    
+      
+      
     }
   
   
