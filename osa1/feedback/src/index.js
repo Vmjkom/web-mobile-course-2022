@@ -11,14 +11,18 @@ const Statistics = ({stat1,stat2,stat3,stat4,stat5,ehto}) => {
  const bol = ehto;
  if (ehto){
    return(
-    <>
-    
+     <div>
+    <table>
+    <tbody>
     <Statistic  text={"Hyvä"} stat={stat1}/>
     <Statistic text="Neutraali" stat={stat2}></Statistic>
     <Statistic text={"Huono"} stat={stat3}></Statistic>
     <Statistic text={"Keskiarvo"} stat={stat4}></Statistic>
-    <Statistic text={"Positiivisia"} stat={stat5}></Statistic>
-    </>
+    <Statistic text={"Positiivisia"} stat={stat5} ></Statistic>
+    </tbody>
+    
+    </table>
+    </div>
    )
  } else {
    return(
@@ -31,7 +35,7 @@ const Statistics = ({stat1,stat2,stat3,stat4,stat5,ehto}) => {
 
 
 const Statistic = ({stat,text}) => (
-  <p> {text} {stat} </p>
+  <tr><td>{text}</td><td>{stat}</td></tr>
 )
 
 class App extends React.Component {
@@ -88,8 +92,8 @@ class App extends React.Component {
     <Statistics stat1={this.state.hyvä} 
     stat2={this.state.neutraali} 
     stat3={this.state.huono} 
-    stat4={this.state.summa / this.state.kaikki.length} 
-    stat5={this.state.posit.length / this.state.kaikki.length} 
+    stat4={(this.state.summa / this.state.kaikki.length).toFixed(1)} 
+    stat5={(this.state.posit.length/this.state.kaikki.length).toFixed(1) + " %"} 
     ehto = {this.state.kaikki.length != 0}/>
       </>
       )
