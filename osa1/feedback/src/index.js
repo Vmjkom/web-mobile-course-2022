@@ -93,7 +93,7 @@ class App extends React.Component {
     stat2={this.state.neutraali} 
     stat3={this.state.huono} 
     stat4={(this.state.summa / this.state.kaikki.length).toFixed(1)} 
-    stat5={(this.state.posit.length/this.state.kaikki.length).toFixed(1) + " %"} 
+    stat5={(this.state.posit.length/this.state.kaikki.length).toFixed(1)*100 + " %"} 
     ehto = {this.state.kaikki.length != 0}/>
       </>
       )
