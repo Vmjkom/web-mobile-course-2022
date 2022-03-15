@@ -13,24 +13,34 @@ class App extends React.Component {
 
   addName = (event) => {
     event.preventDefault()
+    
     const yObject = {
       name: this.state.newName
     }
-
-    const yhteystiedot = this.state.yhteystiedot.concat(yObject)
+    const yhteystiedot = 
+      this.state.yhteystiedot.some((n => n.name === yObject.name)) ?
+      this.state.yhteystiedot :
+      this.state.yhteystiedot.concat(yObject)
+     
+      
     this.setState({
-      yhteystiedot: yhteystiedot,
-      newName: ""
-    })
-  }
+        yhteystiedot: yhteystiedot,
+        newName: ""
+      })
+      
+    }
+    
+  
 
   handleNimiChange = (event) => {
-    console.log("uusi nimi")
+    
     this.setState({newName: event.target.value})
   }
 
   render() {
+    
     return (
+      
       <div>
         <h2>Puhelinluettelo</h2>
         <form onSubmit={this.addName}>
