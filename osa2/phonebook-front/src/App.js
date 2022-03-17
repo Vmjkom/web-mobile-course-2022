@@ -7,15 +7,17 @@ class App extends React.Component {
     super(props)
     this.state = {
       yhteystiedot: props.yhteystiedot,
-      newName: ''
+      newName: '',
+      newNumber: ''
     }
   }
 
-  addName = (event) => {
+  addContact = (event) => {
     event.preventDefault()
     
     const yObject = {
-      name: this.state.newName
+      name: this.state.newName,
+      number: this.state.newNumber
     }
     const yhteystiedot = 
       this.state.yhteystiedot.some((n => n.name === yObject.name)) ?
@@ -25,7 +27,8 @@ class App extends React.Component {
       
     this.setState({
         yhteystiedot: yhteystiedot,
-        newName: ""
+        newName: "",
+        newNumber: ""
       })
       
     }
@@ -36,6 +39,10 @@ class App extends React.Component {
     
     this.setState({newName: event.target.value})
   }
+  handleNumChange = (event) => {
+    
+    this.setState({newNumber: event.target.value})
+  }
 
   render() {
     
@@ -43,12 +50,20 @@ class App extends React.Component {
       
       <div>
         <h2>Puhelinluettelo</h2>
-        <form onSubmit={this.addName}>
+        <form onSubmit={this.addContact}>
+          <div>
           nimi: <input
                   value={this.state.newName}
                   onChange={this.handleNimiChange}
                   
                 />
+          </div>
+          <div>
+          numero: <input
+                    value={this.state.newNumber}
+                    onChange={this.handleNumChange}
+                    />
+          </div>
             <button type="submit">lisää</button>
          </form>       
         <h2>Numerot</h2>

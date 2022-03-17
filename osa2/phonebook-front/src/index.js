@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 
 const yhteystiedot =  [
-  {name: 'Arto Hellas'}
+  {name: 'Arto Hellas',
+   number: '040-20040240'}
 ]
 
 ReactDOM.render(
