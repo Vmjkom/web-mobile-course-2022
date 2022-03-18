@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import Yhteystieto from './components/Yhteystieto'
+import Yhtform from './components/Yhtform';
 
 class App extends React.Component {
   constructor(props) {
@@ -50,22 +51,11 @@ class App extends React.Component {
       
       <div>
         <h2>Puhelinluettelo</h2>
-        <form onSubmit={this.addContact}>
-          <div>
-          nimi: <input
-                  value={this.state.newName}
-                  onChange={this.handleNimiChange}
-                  
-                />
-          </div>
-          <div>
-          numero: <input
-                    value={this.state.newNumber}
-                    onChange={this.handleNumChange}
-                    />
-          </div>
-            <button type="submit">lisää</button>
-         </form>       
+        
+        <Yhtform event={this.addContact} nimi={this.state.newName} change1={this.handleNimiChange}
+                                          numero={this.state.newNumber} change2={this.handleNumChange}
+        />
+        
         <h2>Numerot</h2>
         <ul>
           {this.state.yhteystiedot.map(yhteystieto => <Yhteystieto key={yhteystieto.name} yhteystieto={yhteystieto}/>)}
