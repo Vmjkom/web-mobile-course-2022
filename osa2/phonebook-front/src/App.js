@@ -2,16 +2,26 @@ import './App.css';
 import React from 'react';
 import Yhteystieto from './components/Yhteystieto'
 import Yhtform from './components/Yhtform';
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      yhteystiedot: props.yhteystiedot,
+      yhteystiedot: [],
       newName: '',
       newNumber: ''
     }
   }
+  componentDidMount() {
+    console.log('did mount')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        this.setState({ yhteystiedot: response.data })
+      })
+    }
 
   addContact = (event) => {
     event.preventDefault()
