@@ -1,8 +1,9 @@
 import React from "react"
 
-const Yhteystieto = ({yhteystieto}) => {
+const Yhteystieto = ({yhteystieto,poisto}) => {
     return(
-        <li>{yhteystieto.name} {yhteystieto.number} {yhteystieto.id}</li>
+        <li>{yhteystieto.name} {yhteystieto.number}  <button onClick={poisto}> poista </button> </li>
+        
         
     )
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import Yhteystieto from './components/Yhteystieto'
 import Yhtform from './components/Yhtform';
 import axios from 'axios'
+import contacts from './services/contacts';
 
 class App extends React.Component {
   constructor(props) {
@@ -30,19 +31,52 @@ class App extends React.Component {
       name: this.state.newName,
       number: this.state.newNumber
     }
-    const yhteystiedot = 
-      this.state.yhteystiedot.some((n => n.name === yObject.name)) ?
-      this.state.yhteystiedot :
-      this.state.yhteystiedot.concat(yObject)
-     
+    
+      if (this.state.yhteystiedot.some((n => n.name === yObject.name))){
+        alert('Nimi on jo käytössä')
+        this.setState({
+          yhteystiedot: this.state.yhteystiedot,
+          newName: '',
+          newNumber: ''
+        })
+            
+          
+      } else{
+        axios
+        .post("http://localhost:3001/persons",yObject)
+        .then(response => {
+          this.setState({
+            yhteystiedot: this.state.yhteystiedot.concat(response.data),
+            newName: '',
+            newNumber: ''
+          })
+        })
+      }
+}
       
-    this.setState({
-        yhteystiedot: yhteystiedot,
-        newName: "",
-        newNumber: ""
+     
+handlePoisto = (contact) => {
+  return () => {
+    
+    if (window.confirm(`Poistetaanko ${contact.name}`))
+      contacts
+      .poista(contact.id)
+      .then(res => {
+        console.log(res)
+
+        this.setState({
+          yhteystiedot: this.state.yhteystiedot.filter(n => n.id !== contact.id)
+        }
+          
+        )
       })
       
-    }
+  }
+
+}
+    
+      
+    
     
   
 
@@ -56,7 +90,7 @@ class App extends React.Component {
   }
 
   render() {
-    
+    console.log('render')
     return (
       
       <div>
@@ -68,7 +102,7 @@ class App extends React.Component {
         
         <h2>Numerot</h2>
         <ul>
-          {this.state.yhteystiedot.map(yhteystieto => <Yhteystieto key={yhteystieto.name} yhteystieto={yhteystieto}/>)}
+          {this.state.yhteystiedot.map(yhteystieto => <Yhteystieto key={yhteystieto.name} yhteystieto={yhteystieto} poisto={this.handlePoisto(yhteystieto)} />)}
         </ul>
       </div>
     )

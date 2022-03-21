@@ -11,7 +11,7 @@ const yhteystiedot =  [
 
 ReactDOM.render(
   
-    <App yhteystiedot={yhteystiedot}/>,
+    <App />,
   
   document.getElementById('root')
 );
