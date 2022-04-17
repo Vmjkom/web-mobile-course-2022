@@ -14,6 +14,12 @@ class App extends React.Component {
       newNumber: ''
     }
   }
+  getAll = () => {
+    const baseUrl = '/api/persons'
+    const request = axios.get(baseUrl)
+    return request.then(response => response.data)
+  }
+
   componentDidMount() {
     console.log('did mount')
     axios

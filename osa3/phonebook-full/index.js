@@ -2,6 +2,11 @@ const express = require('express')
 const res = require('express/lib/response')
 const app = express()
 const port = 3001
+//Cors
+const cors = require('cors')
+
+app.use(express.static('build'))
+app.use(cors())
 
 //Logger
 const logger = (request, response, next) => {
@@ -12,14 +17,6 @@ const logger = (request, response, next) => {
   next()
 }
 app.use(logger)
-
-//BodyParser
-const bodyParser = require('body-parser')
-app.use(bodyParser.json())
-
-//Cors
-const cors = require('cors')
-app.use(cors())
 
 
 let persons = [
@@ -75,10 +72,14 @@ app.get('/api/persons/:id', (request, response) => {
     return id
   }
 
+  //BodyParser
+  const bodyParser = require('body-parser')
+  app.use(bodyParser.json())
+
   app.post('/api/persons', (request, response) => {
     const body = request.body
-    
-    if (body.name === undefined || body.number === undefined) {
+    console.log(body)
+    if (body.name === "" || body.number === "") {
       return response.status(400).json({ 
         error: 'content missing' 
       })
