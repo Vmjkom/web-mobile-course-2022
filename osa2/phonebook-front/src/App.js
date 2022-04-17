@@ -17,7 +17,7 @@ class App extends React.Component {
   componentDidMount() {
     console.log('did mount')
     axios
-      .get('http://localhost:3001/persons')
+      .get('http://localhost:3001/api/persons')
       .then(response => {
         console.log('promise fulfilled')
         this.setState({ yhteystiedot: response.data })
@@ -43,7 +43,7 @@ class App extends React.Component {
           
       } else{
         axios
-        .post("http://localhost:3001/persons",yObject)
+        .post("http://localhost:3001/api/persons",yObject)
         .then(response => {
           this.setState({
             yhteystiedot: this.state.yhteystiedot.concat(response.data),

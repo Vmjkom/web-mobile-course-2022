@@ -3,8 +3,24 @@ const res = require('express/lib/response')
 const app = express()
 const port = 3001
 
+//Logger
+const logger = (request, response, next) => {
+  console.log('Method:',request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+app.use(logger)
+
+//BodyParser
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
+
+//Cors
+const cors = require('cors')
+app.use(cors())
+
 
 let persons = [
     {
@@ -29,9 +45,7 @@ let persons = [
     }
 ]
 
-app.get('/',(req,res) => {
-    res.send('<h1>Hello World! </h1>')
-})
+
 
 app.get('/api/persons',(request,response) => {
     response.json(persons)
@@ -87,6 +101,7 @@ app.get('/api/persons/:id', (request, response) => {
   
     response.json(person)
   })
+
 
 
 app.listen(port, () => {
